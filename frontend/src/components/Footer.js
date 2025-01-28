@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
+import "../styles/Footer.css";
 
 const Footer = () => {
     return (
@@ -19,11 +20,14 @@ const Footer = () => {
                             <li>Location Insights</li>
                         </ul>
                     </Col>
-                    <Col md={4} className="text-center">
+                    {/* Centering "Follow Us" Text and Social Icons */}
+                    <Col md={4} className="d-flex flex-column align-items-center text-center">
                         <h5>Follow Us</h5>
-                        <FaFacebook size={24} className="mx-2" />
-                        <FaTwitter size={24} className="mx-2" />
-                        <FaLinkedin size={24} className="mx-2" />
+                        <div className="social-icons d-flex">
+                            <FaFacebook size={24} className="mx-2" />
+                            <FaTwitter size={24} className="mx-2" />
+                            <FaLinkedin size={24} className="mx-2" />
+                        </div>
                     </Col>
                 </Row>
             </Container>
