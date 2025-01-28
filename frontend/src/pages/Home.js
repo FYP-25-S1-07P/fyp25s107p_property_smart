@@ -9,49 +9,52 @@ const Home = () => {
             {/* Hero Section */}
             <div className="hero-section">
                 <Container className="py-5">
-                    <Row className="align-items-center">
-                        <Col md={6}>
+                    <Row className="align-items-center text-center text-md-start">
+                        <Col xs={12} md={6} className="mb-4">
                             <h1 className="hero-title">Predict Singapore HDB Housing Prices with Precision</h1>
                             <p className="hero-subtext">
-                                Make informed decisions with our advanced AI-powered prediction model and comprehensive data visualization tools for Singapore's housing market.
+                                Make informed decisions with our advanced AI-powered prediction model and comprehensive
+                                data visualization tools for Singapore's housing market.
                             </p>
                             <Button className="cta-button">Try It Free</Button>
                         </Col>
-                        <Col md={6}>
-                            <img src="/hdb-building.png" alt="HDB Flat" className="img-fluid hero-image" />
+                        <Col xs={12} md={6}>
+                            <img src="/hdb-building.png" alt="HDB Flat" className="img-fluid hero-image"/>
                         </Col>
                     </Row>
                 </Container>
             </div>
 
             {/* Features Section */}
-            <div className="features-section">
-                <Container className="mt-5">
-                    <Row>
-                        <Col md={4} className="text-center">
+            <div className="features-section py-5">
+                <Container>
+                    <Row className="g-4"> {/* Added spacing between cards */}
+                        <Col xs={12} md={4}>
                             <div className="features-card">
-                                <FaChartLine className="features-card-icon" />
+                                <FaChartLine className="features-card-icon"/>
                                 <h5 className="features-card-title">Price Predictions</h5>
                                 <p className="features-card-description">
                                     Get accurate HDB price predictions powered by advanced machine learning algorithms.
                                 </p>
                             </div>
                         </Col>
-                        <Col md={4} className="text-center">
+                        <Col xs={12} md={4}>
                             <div className="features-card">
-                                <FaHome className="features-card-icon" />
+                                <FaHome className="features-card-icon"/>
                                 <h5 className="features-card-title">Price Trends</h5>
                                 <p className="features-card-description">
-                                    Analyze historical price trends and market patterns through interactive visualizations.
+                                    Analyze historical price trends and market patterns through interactive
+                                    visualizations.
                                 </p>
                             </div>
                         </Col>
-                        <Col md={4} className="text-center">
+                        <Col xs={12} md={4}>
                             <div className="features-card">
-                                <FaSearchLocation className="features-card-icon" />
+                                <FaSearchLocation className="features-card-icon"/>
                                 <h5 className="features-card-title">Geospatial Analysis</h5>
                                 <p className="features-card-description">
-                                    Explore property prices across different locations with our interactive map interface.
+                                    Explore property prices across different locations with our interactive map
+                                    interface.
                                 </p>
                             </div>
                         </Col>

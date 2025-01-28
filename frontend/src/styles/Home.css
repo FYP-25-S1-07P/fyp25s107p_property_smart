@@ -24,6 +24,12 @@ body {
     color: white !important; /* Ensure text color is white */
     font-weight: bold;
     border-radius: 8px;
+    width: 100%;  /* Make button full-width on small screens */
+}
+@media (min-width: 768px) {
+    .cta-button {
+        width: auto;  /* On larger screens, button stays normal */
+    }
 }
 .hero-image {
     max-width: 100%;
@@ -35,7 +41,6 @@ body {
     background-color: #f8f9fa; /* Slightly grey */
     padding: 60px 0;
 }
-
 .features-card {
     border-radius: 20px; /* Rounded edges */
     background-color: #ffffff; /* White background */
@@ -43,24 +48,20 @@ body {
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .features-card:hover {
     transform: translateY(-5px); /* Slight lift on hover */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
-
 .features-card-icon {
     font-size: 40px;
     color: #000000; /* Theme color for icons */
     margin-bottom: 15px;
 }
-
 .features-card-title {
     font-weight: bold;
     font-size: 18px;
     color: #000000; /* Black text for title */
 }
-
 .features-card-description {
     color: #000000; /* Black text for description */
     font-size: 14px;
