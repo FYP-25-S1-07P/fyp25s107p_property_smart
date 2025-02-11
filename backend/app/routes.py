@@ -11,7 +11,7 @@ def home():
 def test():
     return jsonify({"message": "Hello from Flask backend!"})
  
-@main_routes.route("/api/contact", methods=["GET"])
+@main_routes.route("/api/contactz", methods=["GET"])
 def contact():
     """Returns contact details using the service function"""
     return jsonify(get_contact_info())
