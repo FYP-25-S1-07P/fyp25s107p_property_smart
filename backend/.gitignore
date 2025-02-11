@@ -3,3 +3,5 @@ venv/*
 
 # Ignore instruction.txt
 instructions.txt
+
+__pycache__/*
