@@ -4,4 +4,7 @@
     <option name="sdkName" value="Python 3.6 (fyp25s107p_property_smart)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (fyp25s107p_property_smart)" project-jdk-type="Python SDK" />
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
+  </component>
 </project>
