@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, db, createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, googleProvider, doc, setDoc, collection, query, where, getDocs, updateDoc, runTransaction } from "../../firebaseConfig";
+import { auth, db, createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, googleProvider, doc, setDoc, collection, query, where, getDocs, runTransaction } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa"; // Import Google Icon
 import "../../styles/Signup.css"; // Import styles

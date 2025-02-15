@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { auth, signInWithEmailAndPassword, signInWithPopup, googleProvider } from "../../firebaseConfig";
 import "../../styles/Login.css";
 import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
     const location = useLocation(); // Get message from navigation state
-    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
