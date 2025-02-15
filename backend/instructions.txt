@@ -3,9 +3,16 @@ venv\Scripts\Activate.ps1
 
 
 // backend
+// To create environment, please do not use once you have created
 python -m venv venv
+
+// to start environment
 venv\Scripts\activate
+
+// to install dependencies
 pip install -r requirements.txt
+
+// to start the backend
 python main.py
 http://127.0.0.1:5000/
 
