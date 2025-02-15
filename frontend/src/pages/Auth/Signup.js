@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, db, createUserWithEmailAndPassword, signInWithPopup, googleProvider, doc, setDoc, getDocs, collection, query, where, updateDoc } from "../../firebaseConfig";
+import { auth, db, createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, googleProvider, doc, setDoc, collection, query, where, getDocs, updateDoc, runTransaction } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa"; // Import Google Icon
 import "../../styles/Signup.css"; // Import styles
@@ -25,44 +25,87 @@ const Signup = () => {
 
         try {
             const { email, password, firstName, lastName, referralCode } = formData;
+
+            // Create Firebase User
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
+            let user = userCredential.user;
 
-            let points = 100; // Default points for signing up
+            console.log("✅ Firebase User Created:", user.uid);
 
+            // Refresh Authentication Token Before Firestore Write
+            await new Promise((resolve) => setTimeout(resolve, 2000)); // 2-second delay
+            await user.reload(); // Ensures Firebase updates the user session
+            user = auth.currentUser; // Get the updated user object
+            await user.getIdToken(true); // Forces token refresh
+
+            console.log("✅ Firebase Auth Verified - UID:", user.uid);
+            console.log("✅ Firestore Write Attempt for UID:", user.uid);
+
+            if (!user || !user.uid) {
+                console.log("🚨 Firebase user is NULL. Cannot write to Firestore.");
+                return;
+            }
+
+            let extraPoints = 0;
+
+            // ✅ Step 1: Check Referral Code and Reward Extra Points
             if (referralCode) {
-                // Check if referral code exists in Firestore
-                const refQuery = query(collection(db, "users"), where("referralCode", "==", referralCode));
-                const refSnapshot = await getDocs(refQuery);
+                console.log("🔍 Checking referral code:", referralCode);
 
-                if (!refSnapshot.empty) {
-                    // Valid referral code found
-                    const referrerDoc = refSnapshot.docs[0];
-                    const referrerId = referrerDoc.id; // Get referrer user ID
+                const q = query(collection(db, "users"), where("referralCode", "==", referralCode));
+                const querySnapshot = await getDocs(q);
 
-                    // Increase referrer's points by 100
-                    await updateDoc(doc(db, "users", referrerId), {
-                        points: referrerDoc.data().points + 100
+                if (!querySnapshot.empty) {
+                    console.log("✅ Valid referral code found!");
+
+                    // Reward new user 100 points
+                    extraPoints = 100;
+
+                    // Get referrer's UID
+                    const referrerUID = querySnapshot.docs[0].id;
+                    const referrerDocRef = doc(db, "users", referrerUID);
+
+                    console.log("🏆 Referrer UID:", referrerUID);
+
+                    // ✅ Use Firestore Transaction to Update Referrer's Points
+                    await runTransaction(db, async (transaction) => {
+                        const referrerDoc = await transaction.get(referrerDocRef);
+
+                        if (!referrerDoc.exists()) {
+                            throw new Error("Referrer does not exist!");
+                        }
+
+                        const newPoints = (referrerDoc.data().points || 0) + 100;
+                        transaction.update(referrerDocRef, { points: newPoints });
                     });
 
-                    points += 100; // Give extra 100 points to the new user
+                    console.log("🏆 Referrer rewarded with +100 points!");
+                } else {
+                    console.log("❌ Invalid referral code provided.");
                 }
             }
 
-            // Generate unique referral code for the new user (first 6 chars of UID)
-            const generatedReferralCode = user.uid.substring(0, 6);
-
-            // Save new user to Firestore
-            await setDoc(doc(db, "users", user.uid), {
+            // ✅ Step 2: Store New User in Firestore
+            const userDocRef = doc(db, "users", user.uid);
+            await setDoc(userDocRef, {
                 firstName,
                 lastName,
                 email,
-                points,
-                referralCode: generatedReferralCode,
+                points: 100 + extraPoints, // Base 100 points + referral bonus
+                referralCode: Math.random().toString(36).substring(2, 8), // Generate unique referral code
+                role: "end-user",
             });
 
-            navigate("/");
+            console.log("✅ Firestore Write Successful!");
+
+            // ✅ Step 3: Send Email Verification
+            await sendEmailVerification(user);
+
+            setError("A verification email has been sent. Please check your inbox.");
+            navigate("/login");
+
         } catch (error) {
+            console.error("❌ Signup Failed:", error);
             setError(error.message);
         }
     };

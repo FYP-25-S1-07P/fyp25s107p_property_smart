@@ -15,7 +15,14 @@ const Login = () => {
         setError("");
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            if (!user.emailVerified) {
+                setError("Please verify your email before logging in.");
+                return;
+            }
+
             navigate("/");
         } catch (error) {
             setError(error.message);
