@@ -1,0 +1,116 @@
+/* General Container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+/* Login Box */
+.auth-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Heading */
+.auth-box h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Error Message */
+.error-message {
+    color: #d9534f;
+    background: #f8d7da;
+    padding: 10px;
+    border: 1px solid #d9534f;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Input Fields */
+.auth-box input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Login Button */
+.auth-button {
+    background-color: #ab1d79;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.auth-button:hover {
+    background-color: #8d1662;
+}
+
+/* Sign-up Text */
+.signup-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Separator */
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.separator hr {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+    border: none;
+}
+
+.separator span {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+/* Google Button */
+.google-button {
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.google-button:hover {
+    background-color: #f1f1f1;
+}
+
+/* Google Icon */
+.google-icon {
+    font-size: 18px;
+}

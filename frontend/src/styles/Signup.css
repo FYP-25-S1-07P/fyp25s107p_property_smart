@@ -1,0 +1,241 @@
+/* Signup Container */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+/* Signup Content */
+.signup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    gap: 80px;
+    margin-bottom: 50px; /* Adds space between signup form and stats section */
+}
+
+/* Signup Left - Logo & Info */
+.signup-left {
+    text-align: center;
+}
+
+.signup-logo {
+    max-width: 320px;
+    margin-bottom: 20px;
+}
+
+.signup-info {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+}
+
+/* Signup Box */
+.signup-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Style links inside the signup box */
+.signup-box a {
+    color: #ab1d79; /* Set the same color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Optional: Make it stand out */
+}
+
+.signup-box a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Signup Header */
+.signup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-link {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #d9534f; /* Bootstrap danger red */
+    background: #f8d7da; /* Light red background */
+    padding: 10px;
+    border: 1px solid #d9534f;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Input Fields */
+.signup-box input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Terms Checkbox */
+.terms-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin: 10px;
+}
+
+.terms-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Buttons */
+.signup-button {
+    background-color: #ab1d79;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Google Button */
+.google-button {
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* OR Separator */
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.separator hr {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+    border: none;
+}
+
+.separator span {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+/* Statistics Section */
+.stats-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual Stat Box */
+.stat-box {
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Stat Numbers */
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Stat Description */
+.stat-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 🔥 RESPONSIVE DESIGN 🔥 */
+@media (max-width: 1024px) {
+    .signup-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .signup-left, .signup-right {
+        width: 100%;
+    }
+
+    .signup-info {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .signup-box {
+        max-width: 100%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .signup-container {
+        padding: 15px;
+    }
+
+    .signup-content {
+        width: 100%;
+        gap: 30px;
+    }
+
+    .stats-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 20px;
+    }
+}
