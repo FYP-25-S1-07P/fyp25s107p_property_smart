@@ -30,32 +30,25 @@ const Signup = () => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             let user = userCredential.user;
 
-            console.log("✅ Firebase User Created:", user.uid);
-
             // Refresh Authentication Token Before Firestore Write
             await user.reload(); // Ensures Firebase updates the user session
             user = auth.currentUser; // Get the updated user object
             await user.getIdToken(true); // Forces token refresh
 
-            console.log("✅ Firebase Auth Verified - UID:", user.uid);
-            console.log("✅ Firestore Write Attempt for UID:", user.uid);
-
             if (!user || !user.uid) {
-                console.log("🚨 Firebase user is NULL. Cannot write to Firestore.");
+                console.log("Firebase user is NULL. Cannot write to Firestore.");
                 return;
             }
 
             let extraPoints = 0;
 
-            // ✅ Step 1: Check Referral Code and Reward Extra Points
+            // Check Referral Code and Reward Extra Points
             if (referralCode) {
-                console.log("🔍 Checking referral code:", referralCode);
 
                 const q = query(collection(db, "users"), where("referralCode", "==", referralCode));
                 const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
-                    console.log("✅ Valid referral code found!");
 
                     // Reward new user 100 points
                     extraPoints = 100;
@@ -64,9 +57,7 @@ const Signup = () => {
                     const referrerUID = querySnapshot.docs[0].id;
                     const referrerDocRef = doc(db, "users", referrerUID);
 
-                    console.log("🏆 Referrer UID:", referrerUID);
-
-                    // ✅ Use Firestore Transaction to Update Referrer's Points
+                    // Use Firestore Transaction to Update Referrer's Points
                     await runTransaction(db, async (transaction) => {
                         const referrerDoc = await transaction.get(referrerDocRef);
 
@@ -78,13 +69,12 @@ const Signup = () => {
                         transaction.update(referrerDocRef, { points: newPoints });
                     });
 
-                    console.log("🏆 Referrer rewarded with +100 points!");
                 } else {
-                    console.log("❌ Invalid referral code provided.");
+                    console.log("Invalid referral code provided.");
                 }
             }
 
-            // ✅ Step 2: Store New User in Firestore
+            // Store New User in Firestore
             const userDocRef = doc(db, "users", user.uid);
             await setDoc(userDocRef, {
                 firstName,
@@ -95,16 +85,14 @@ const Signup = () => {
                 role: "end-user",
             });
 
-            console.log("✅ Firestore Write Successful!");
-
-            // ✅ Step 3: Send Email Verification
+            // Send Email Verification
             await sendEmailVerification(user);
 
-            setError("A verification email has been sent. Please check your inbox.");
-            navigate("/login");
+            // Redirect to login page with success message
+            navigate("/login", { state: { message: "Signup successful! Please verify your email before logging in." } });
 
         } catch (error) {
-            console.error("❌ Signup Failed:", error);
+            console.error("Signup Failed:", error);
             setError(error.message);
         }
     };

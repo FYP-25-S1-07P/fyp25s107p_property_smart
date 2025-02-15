@@ -1,18 +1,22 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { auth, signInWithEmailAndPassword, signInWithPopup, googleProvider } from "../../firebaseConfig";
-import { useNavigate } from "react-router-dom";
 import "../../styles/Login.css";
-import { FaGoogle } from "react-icons/fa"; // Google Icon
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
+    const location = useLocation(); // Get message from navigation state
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const navigate = useNavigate();
+    const [successMessage, setSuccessMessage] = useState(""); // Store login success message
+    const signupSuccessMessage = location.state?.message || ""; // Capture signup success message
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
+        setSuccessMessage(""); // Clear previous messages
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -23,7 +27,7 @@ const Login = () => {
                 return;
             }
 
-            navigate("/");
+            setSuccessMessage("Login successful!!!!!"); // Show success message
         } catch (error) {
             setError(error.message);
         }
@@ -32,7 +36,7 @@ const Login = () => {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate("/");
+            setSuccessMessage("Login successful! Redirecting..."); // Show success message
         } catch (error) {
             setError(error.message);
         }
@@ -41,8 +45,24 @@ const Login = () => {
     return (
         <div className="auth-container">
             <div className="auth-box">
+                {/* Show signup success message if redirected from Signup */}
+                {signupSuccessMessage && (
+                    <div className="alert alert-success" role="alert">
+                        {signupSuccessMessage}
+                    </div>
+                )}
+
+                {/* Show login success message */}
+                {successMessage && (
+                    <div className="alert alert-success" role="alert">
+                        {successMessage}
+                    </div>
+                )}
+
                 <h2>Login to Property Smart</h2>
-                {error && <p className="error-message">{error}</p>}
+
+                {/* Show error messages for login failures */}
+                {error && <div className="alert alert-danger">{error}</div>}
 
                 <form onSubmit={handleLogin}>
                     <input
