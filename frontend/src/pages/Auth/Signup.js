@@ -33,7 +33,6 @@ const Signup = () => {
             console.log("✅ Firebase User Created:", user.uid);
 
             // Refresh Authentication Token Before Firestore Write
-            await new Promise((resolve) => setTimeout(resolve, 2000)); // 2-second delay
             await user.reload(); // Ensures Firebase updates the user session
             user = auth.currentUser; // Get the updated user object
             await user.getIdToken(true); // Forces token refresh
